@@ -6,7 +6,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const port = process.env.PORT || 5000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json())
 
 
 const uri = `mongodb+srv://${process.env.Db_user}:${process.env.Db_pass}@cluster0.ppwrhof.mongodb.net/?retryWrites=true&w=majority`;
@@ -51,10 +51,11 @@ app.get('/serviceGet', async(req,res) => {
 // view booking data 
 
 
-app.get('/booking', async(req,res) => {
-  const patients = req.query.patient;
-  const querys = {patent:patients};
-  const booking = await bookingCollection.find(querys).toArray();
+app.get('/getBooking', async(req,res) => {
+  const patient = req.query.patient;
+  const query = {patent:patient};
+  const booking = await bookingCollection.find({query}).toArray();
+  console.log(booking);
   res.send(booking);
 })
 
@@ -80,4 +81,4 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Dental app listening on port ${port}`)
-});
+})
