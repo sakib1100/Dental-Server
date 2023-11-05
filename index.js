@@ -10,7 +10,6 @@ app.use(express.json())
 
 
 const uri = `mongodb+srv://${process.env.Db_user}:${process.env.Db_pass}@cluster0.ppwrhof.mongodb.net/?retryWrites=true&w=majority`;
-
 const client = new MongoClient(uri, {
     serverApi: {
       version: ServerApiVersion.v1,
@@ -45,17 +44,13 @@ app.get('/serviceGet', async(req,res) => {
 })
 
 
-
-
-
 // view booking data 
 
 
 app.get('/getBooking', async(req,res) => {
   const patient = req.query.patient;
   const query = {patent:patient};
-  const booking = await bookingCollection.find({query}).toArray();
-  console.log(booking);
+  const booking = await bookingCollection.find(query).toArray();
   res.send(booking);
 })
 
